@@ -13,6 +13,8 @@ public class PlayerScript : MonoBehaviour
     int deathHealth;
     [SerializeField] Slider healthBar;
     [SerializeField] GameObject gameManager;
+    [SerializeField] GameObject enemies;
+    [SerializeField] Joystick joystick;
 
     void Start()
     {
@@ -36,6 +38,7 @@ public class PlayerScript : MonoBehaviour
             Vector3 scaleDown = new Vector3(0.1f, 0.1f, 0);
 
             transform.localScale -= scaleDown;
+            enemies.GetComponent<Movement>().speed+=0.2f;
         }
 
         if (health == deathHealth)
@@ -77,6 +80,13 @@ public class PlayerScript : MonoBehaviour
         {
             transform.Translate(Vector2.right * speed * Time.deltaTime);
         }
+        if (Input.touchCount > 0){
+            Touch touch = Input.GetTouch(0);
+            Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+            joystick.GetComponent<Transform>().position = touchPosition;
+        }
+        transform.Translate(Vector2.right * joystick.Horizontal * 0.1f);
+        transform.Translate(Vector2.up * joystick.Vertical * 0.1f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -10,6 +10,7 @@ public class Main : MonoBehaviour
     [SerializeField] public GameObject pauseMenu;
     [SerializeField] public GameObject restartMenu;
     [SerializeField] public Slider slider;
+    [SerializeField] public GameObject joystick;
     [SerializeField] public List<MonoBehaviour> scripts;
     public AudioSource audioSource;
     public string fileName = "difficulty.txt";
@@ -45,6 +46,7 @@ public class Main : MonoBehaviour
     public void PauseGame()
     {
         pauseMenu.SetActive(true);
+        joystick.SetActive(false);
         foreach(MonoBehaviour script in scripts)
         {
             script.enabled = false;
@@ -56,6 +58,7 @@ public class Main : MonoBehaviour
     {
         /**/
         pauseMenu.SetActive(false);
+        joystick.SetActive(true);
         foreach (MonoBehaviour script in scripts)
         {
             script.enabled = true;
@@ -65,6 +68,7 @@ public class Main : MonoBehaviour
     public void EndGame()
     {
         restartMenu.SetActive(true);
+        joystick.SetActive(false);
         foreach (MonoBehaviour script in scripts)
         {
             script.enabled = false;
