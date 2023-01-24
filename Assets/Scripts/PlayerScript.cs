@@ -82,8 +82,10 @@ public class PlayerScript : MonoBehaviour
         }
         if (Input.touchCount > 0){
             Touch touch = Input.GetTouch(0);
-            Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-            joystick.GetComponent<Transform>().position = touchPosition;
+            if (touch.phase == TouchPhase.Began)
+            {
+                joystick.GetComponent<Transform>().position = touch.position;
+            }
         }
         transform.Translate(Vector2.right * joystick.Horizontal * 0.1f);
         transform.Translate(Vector2.up * joystick.Vertical * 0.1f);
